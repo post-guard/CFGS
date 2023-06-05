@@ -14,7 +14,7 @@ public class SimplifierAlgorithmA implements Simplifier{
     @Override
     public ContextFreeGrammar simplify(ContextFreeGrammar grammar) {
 
-        HashSet<Character> nonTerminalSetZero = new HashSet<>();//N0 第一步
+        HashSet<Character> nonTerminalSetZero = new HashSet<>();//N0 第一步 N0 = {}
         HashSet<Character> nonTerminalSetApostrophe = new HashSet<>();//N'
 
         //第二步
@@ -29,7 +29,7 @@ public class SimplifierAlgorithmA implements Simplifier{
                     }
                 }
             }
-            if(currentMap!=null && currentMap.contains("")){//对epsilon进行操作
+            if(currentMap!=null && currentMap.contains("ε")){//对epsilon进行操作
                 nonTerminalSetApostrophe.add(nonTerminal);
             }
         }
@@ -39,7 +39,7 @@ public class SimplifierAlgorithmA implements Simplifier{
             //第三步
             if (!nonTerminalSetZero.equals(nonTerminalSetApostrophe)) {
 
-                nonTerminalSetZero = nonTerminalSetApostrophe;//第四步
+                nonTerminalSetZero = new HashSet<>(nonTerminalSetApostrophe);//第四步
 
                 //第五步
                 HashSet<Character> searchSet = new HashSet<>();
@@ -48,16 +48,19 @@ public class SimplifierAlgorithmA implements Simplifier{
 
                 for (Character nonTerminal : grammar.getNonTerminalSet()) {
                     HashSet<String> currentMap = grammar.getProductionSet().get(nonTerminal);
-                    for (Character index : searchSet) {
+                    //for (Character index : searchSet) {
                         if (currentMap != null) {
                             for(var currentIndex : currentMap){
-                                if(currentIndex.contains(String.valueOf(index))){
+                                /*if(currentIndex.contains(String.valueOf(index))){
+                                    nonTerminalSetApostrophe.add(nonTerminal);
+                                }*/
+                                if(containsOnly(currentIndex,searchSet)){
                                     nonTerminalSetApostrophe.add(nonTerminal);
                                 }
                             }
                         }
-                    }
-                    if (currentMap!=null && currentMap.contains("")) {//对epsilon进行操作
+                   // }
+                    if (currentMap!=null && currentMap.contains("ε")) {//对epsilon进行操作
                         nonTerminalSetApostrophe.add(nonTerminal);
                     }
                 }
@@ -74,18 +77,20 @@ public class SimplifierAlgorithmA implements Simplifier{
         for(var nonTerminal : nonTerminalSetApostrophe){
 
             HashSet<String> resultSet = new HashSet<>();
+            HashSet<Character> nonTPlusT = new HashSet<>();
+            nonTPlusT.addAll(nonTerminalSetApostrophe);
+            nonTPlusT.addAll(grammar.getTerminalSet());
+
             for(var set : grammar.getProductionSet().get(nonTerminal)){
-                HashSet<Character> nonTPlusT = new HashSet<>();
-                nonTPlusT.addAll(nonTerminalSetApostrophe);
-                nonTPlusT.addAll(grammar.getTerminalSet());
+
                 if(containsOnly(set,nonTPlusT)){
                     resultSet.add(set);
                 }
             }
             resultTable.put(nonTerminal,resultSet);
         }
-        System.out.println(nonTerminalSetApostrophe);
-        System.out.println(resultTable);
+       /* System.out.println(nonTerminalSetApostrophe);
+        System.out.println(resultTable);*/
         try {
             return new ContextFreeGrammar(nonTerminalSetApostrophe,grammar.getTerminalSet(),resultTable,grammar.getStarter());
 
@@ -111,5 +116,6 @@ public class SimplifierAlgorithmA implements Simplifier{
         }
         return true;
     }
+
 
 }

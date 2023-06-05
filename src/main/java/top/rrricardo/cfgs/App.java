@@ -3,6 +3,7 @@ package top.rrricardo.cfgs;
 import top.rrricardo.cfgs.exceptions.IllegalContextFreeGrammarException;
 import top.rrricardo.cfgs.models.ContextFreeGrammar;
 import top.rrricardo.cfgs.simplifiers.SimplifierAlgorithmA;
+import top.rrricardo.cfgs.simplifiers.SimplifierAlgorithmB;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -16,10 +17,17 @@ public class App {
             var grammar = ContextFreeGrammar.parse(input);
 
             var simplifierA = new SimplifierAlgorithmA();
-
+            var simplifierB = new SimplifierAlgorithmB();
+            System.out.println("原始输入:");
             System.out.println(grammar);
 
-            System.out.println(simplifierA.simplify(grammar).toString());
+            grammar = simplifierA.simplify(grammar);
+            System.out.println("消除无用符号算法一:");
+            System.out.println(grammar);
+
+            grammar = simplifierB.simplify(grammar);
+            System.out.println("消除无用符号算法二:");
+            System.out.println(grammar);
         } catch (IOException | IllegalContextFreeGrammarException exception) {
             exception.printStackTrace();
         }

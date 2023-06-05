@@ -1,5 +1,6 @@
 package top.rrricardo.cfgs.simplifiers;
 
+import top.rrricardo.cfgs.exceptions.IllegalContextFreeGrammarException;
 import top.rrricardo.cfgs.models.ContextFreeGrammar;
 
 /**
@@ -11,5 +12,5 @@ public interface Simplifier {
      * @param grammar 需要化简的语法
      * @return 化简之后的结果
      */
-    ContextFreeGrammar simplify(ContextFreeGrammar grammar);
+    ContextFreeGrammar simplify(ContextFreeGrammar grammar) throws IllegalContextFreeGrammarException;
 }

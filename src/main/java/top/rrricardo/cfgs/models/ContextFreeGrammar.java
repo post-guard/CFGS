@@ -142,9 +142,15 @@ public class ContextFreeGrammar {
 
         for (var value : productionSet.values()) {
             for (var item : value) {
+                if (item.equals("ε")) {
+                    // 如果是空字符串就不做处理
+                    continue;
+                }
+
                 var array = item.toCharArray();
 
                 for (var c : array) {
+
                     if (!nonTerminalSet.contains(c) && !terminalSet.contains(c)) {
                         throw new IllegalContextFreeGrammarException("非法的生成式右部" + item);
                     }

@@ -65,7 +65,7 @@ public class ContextFreeGrammar {
     }
 
     public static ContextFreeGrammar parse(String input) throws IllegalContextFreeGrammarException {
-        var lines = input.split("\n");
+        var lines = input.split(System.lineSeparator());
         var nonTerminalSet = new HashSet<Character>();
         var terminalSet = new HashSet<Character>();
         var productionSet = new Hashtable<Character, HashSet<String>>();

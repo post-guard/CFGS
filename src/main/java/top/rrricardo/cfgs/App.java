@@ -2,6 +2,7 @@ package top.rrricardo.cfgs;
 
 import top.rrricardo.cfgs.exceptions.IllegalContextFreeGrammarException;
 import top.rrricardo.cfgs.models.ContextFreeGrammar;
+import top.rrricardo.cfgs.simplifiers.SimplifierAlgorithmA;
 
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -38,7 +39,12 @@ public class App {
 
         try {
             var grammar = new ContextFreeGrammar(nonTerminalSet, terminalSet, productionTable, 'S');
+
+            var simplifierA = new SimplifierAlgorithmA();
+
             System.out.println(grammar);
+
+            System.out.println(simplifierA.simplify(grammar).toString());
         } catch (IllegalContextFreeGrammarException ignored) {
 
         }

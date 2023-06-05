@@ -8,14 +8,14 @@ import java.util.Hashtable;
 
 public class App {
     public static void main(String[] args) {
-        var nonTerminalSet = new HashSet<String>();
-        nonTerminalSet.add("S");
-        nonTerminalSet.add("B");
-        nonTerminalSet.add("C");
+        var nonTerminalSet = new HashSet<Character>();
+        nonTerminalSet.add('S');
+        nonTerminalSet.add('B');
+        nonTerminalSet.add('C');
 
-        var terminalSet = new HashSet<String>();
-        terminalSet.add("0");
-        terminalSet.add("1");
+        var terminalSet = new HashSet<Character>();
+        terminalSet.add('0');
+        terminalSet.add('1');
 
         var sProductionSet = new HashSet<String>();
         sProductionSet.add("0C");
@@ -31,13 +31,13 @@ public class App {
         cProductionSet.add("1S");
         cProductionSet.add("0CC");
 
-        var productionTable = new Hashtable<String, HashSet<String>>();
-        productionTable.put("S", sProductionSet);
-        productionTable.put("B", bProductionSet);
-        productionTable.put("C", cProductionSet);
+        var productionTable = new Hashtable<Character, HashSet<String>>();
+        productionTable.put('S', sProductionSet);
+        productionTable.put('B', bProductionSet);
+        productionTable.put('C', cProductionSet);
 
         try {
-            var grammar = new ContextFreeGrammar(nonTerminalSet, terminalSet, productionTable, "S");
+            var grammar = new ContextFreeGrammar(nonTerminalSet, terminalSet, productionTable, 'S');
             System.out.println(grammar);
         } catch (IllegalContextFreeGrammarException ignored) {
 

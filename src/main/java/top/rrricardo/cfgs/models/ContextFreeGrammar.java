@@ -9,17 +9,17 @@ import java.util.Hashtable;
  * 上下文无关文法
  */
 public class ContextFreeGrammar {
-    private final HashSet<String> nonTerminalSet;
-    private final HashSet<String> terminalSet;
-    private final Hashtable<String, HashSet<String>> productionSet;
+    private final HashSet<Character> nonTerminalSet;
+    private final HashSet<Character> terminalSet;
+    private final Hashtable<Character, HashSet<String>> productionSet;
 
-    private final String starter;
+    private final char starter;
 
     public ContextFreeGrammar(
-            HashSet<String> nonTerminalSet,
-            HashSet<String> terminalSet,
-            Hashtable<String, HashSet<String>> productionSet,
-            String starter) throws IllegalContextFreeGrammarException {
+            HashSet<Character> nonTerminalSet,
+            HashSet<Character> terminalSet,
+            Hashtable<Character, HashSet<String>> productionSet,
+            char starter) throws IllegalContextFreeGrammarException {
         this.nonTerminalSet = nonTerminalSet;
         this.terminalSet = terminalSet;
         this.productionSet = productionSet;
@@ -29,19 +29,19 @@ public class ContextFreeGrammar {
     }
 
 
-    public HashSet<String> getNonTerminalSet() {
+    public HashSet<Character> getNonTerminalSet() {
         return nonTerminalSet;
     }
 
-    public HashSet<String> getTerminalSet() {
+    public HashSet<Character> getTerminalSet() {
         return terminalSet;
     }
 
-    public Hashtable<String, HashSet<String>> getProductionSet() {
+    public Hashtable<Character, HashSet<String>> getProductionSet() {
         return productionSet;
     }
 
-    public String getStarter() {
+    public char getStarter() {
         return starter;
     }
 

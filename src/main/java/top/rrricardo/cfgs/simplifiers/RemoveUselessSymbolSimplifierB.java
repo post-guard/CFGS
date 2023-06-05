@@ -9,7 +9,7 @@ import java.util.Hashtable;
 /**
  * 消除无用符号算法二:找出有用符号
  */
-public class SimplifierAlgorithmB implements Simplifier{
+public class RemoveUselessSymbolSimplifierB implements Simplifier{
     @Override
     public ContextFreeGrammar simplify(ContextFreeGrammar grammar) {
         HashSet<Character> nonTerminalSetZero = new HashSet<>();//N0

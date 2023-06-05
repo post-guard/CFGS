@@ -10,7 +10,7 @@ import java.util.Hashtable;
 /**
  * 消除无用符号算法一:找出有用非终结符
  */
-public class SimplifierAlgorithmA implements Simplifier{
+public class RemoveUselessSymbolSimplifierA implements Simplifier{
     @Override
     public ContextFreeGrammar simplify(ContextFreeGrammar grammar) {
 

@@ -2,8 +2,7 @@ package top.rrricardo.cfgs;
 
 import top.rrricardo.cfgs.exceptions.IllegalContextFreeGrammarException;
 import top.rrricardo.cfgs.models.ContextFreeGrammar;
-import top.rrricardo.cfgs.simplifiers.RemoveEpsilonSimplifier;
-import top.rrricardo.cfgs.simplifiers.Simplifier;
+import top.rrricardo.cfgs.simplifiers.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,6 +21,9 @@ public class App {
 
             var simplifier = new ArrayList<Simplifier>();
             simplifier.add(new RemoveEpsilonSimplifier());
+            simplifier.add(new RemoveSingleSimplifier());
+            simplifier.add(new RemoveUselessSymbolSimplifierA());
+            simplifier.add(new RemoveUselessSymbolSimplifierB());
 
             for (var s : simplifier) {
                 grammar = s.simplify(grammar);

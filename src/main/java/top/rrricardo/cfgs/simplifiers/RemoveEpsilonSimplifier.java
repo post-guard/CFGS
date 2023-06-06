@@ -69,18 +69,22 @@ public class RemoveEpsilonSimplifier implements Simplifier {
         }
 
         var newNonTerminalSet = new HashSet<>(grammar.getNonTerminalSet());
+        var starter = grammar.getStarter();
         // 新建的起始符
-        newNonTerminalSet.add('%');
-        var startProductionSet = new HashSet<String>();
-        startProductionSet.add("ε");
-        startProductionSet.add(String.valueOf(grammar.getStarter()));
-        newProductionSet.put('%', startProductionSet);
+        if (generateEpsilonSet.contains(grammar.getStarter())) {
+            newNonTerminalSet.add('%');
+            var startProductionSet = new HashSet<String>();
+            startProductionSet.add("ε");
+            startProductionSet.add(String.valueOf(grammar.getStarter()));
+            newProductionSet.put('%', startProductionSet);
+            starter = '%';
+        }
 
         return new ContextFreeGrammar(
                 newNonTerminalSet,
                 new HashSet<>(grammar.getTerminalSet()),
                 newProductionSet,
-                '%'
+                starter
         );
     }
 
